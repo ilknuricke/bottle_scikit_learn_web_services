@@ -3,7 +3,7 @@ matplotlib.use('Agg')
 
 import matplotlib.pyplot as plt
 import numpy as np
-from cStringIO import StringIO
+from io import StringIO
 
 from bottle import route, run, request, static_file
 import csv
@@ -61,9 +61,9 @@ def plot():
    fontP.set_size('small')
 
    colors = np.random.rand(len(labels),3)
-   
+
    for  c,i, target_name in zip(colors,range(len(labels)), target_names):
-       ax.scatter(X_r[y == i, 0], X_r[y == i, 1], c=c, 
+       ax.scatter(X_r[y == i, 0], X_r[y == i, 1], c=c,
                   label=target_name,cmap=plt.cm.coolwarm)
        ax.legend(loc='upper center', bbox_to_anchor=(1.05, -0.05),
                  fancybox=True,shadow=True, ncol=len(labels),prop=fontP)
@@ -71,7 +71,7 @@ def plot():
        ax.tick_params(axis='both', which='major', labelsize=6)
 
    for c,i, target_name in zip(colors,range(len(labels)), target_names):
-       bx.scatter(X_r2[y == i, 0], X_r2[y == i, 1], c=c, 
+       bx.scatter(X_r2[y == i, 0], X_r2[y == i, 1], c=c,
                   label=target_name,cmap=plt.cm.coolwarm)
        bx.set_title('LDA');
        bx.tick_params(axis='both', which='major', labelsize=6)
@@ -83,4 +83,4 @@ def plot():
 
    return html.format(data)
 
-run(host='mindwriting.org', port=8079, debug=True)
+run(host='localhost', port=8079, debug=True)
